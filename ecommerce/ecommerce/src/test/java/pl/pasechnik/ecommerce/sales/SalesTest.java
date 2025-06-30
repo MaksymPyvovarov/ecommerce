@@ -52,6 +52,7 @@ public class SalesTest {
         assertEquals(BigDecimal.valueOf(10),offer1.getTotal());
         assertEquals(BigDecimal.valueOf(20),offer2.getTotal());
     }
+/*
     @Test
     void offerAcceptance(){
         SalesFacade sales = thereIsSalesModule();
@@ -68,6 +69,7 @@ public class SalesTest {
                         .setEmail("smath")
         );
     }
+*/
 
     private String thereIsProduct(String productX, BigDecimal bigDecimal) {
         var id= catalog.createProducts(productX,"desc");

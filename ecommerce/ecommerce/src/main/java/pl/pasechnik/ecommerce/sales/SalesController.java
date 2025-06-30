@@ -4,26 +4,31 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SalesController {
-    SalesFacade salesFacade;
-    public SalesController(SalesFacade salesFacade){
-        this.salesFacade=salesFacade;
+    SalesFacade sales;
+
+    public SalesController(SalesFacade sales) {
+        this.sales = sales;
     }
 
     @GetMapping("/api/current-offer")
-    Offer getCurrentOffer(){
-        return salesFacade.getCurrentOffer(getCurrentCustomer());
+    Offer getCurrentOffer() {
+        var customerId = getCurrentCustomerId();
+        return sales.getCurrentOffer(customerId);
     }
+
     @PostMapping("/api/add-product/{productId}")
-    void addProduct(@PathVariable(name="productId") String productId){
-        salesFacade.addToCart(getCurrentCustomer(),productId);
+    void addProduct(@PathVariable(name = "productId") String productId) {
+        var customerId = getCurrentCustomerId();
+        sales.addProduct(customerId, productId);
     }
 
     @PostMapping("/api/accept-offer")
-    void acceptOffer(@RequestBody AcceptOfferCommand acceptOfferCommand){
-        salesFacade.AcceptOrder(acceptOfferCommand);
+    ReservationDetails acceptOffer(@RequestBody AcceptOfferCommand acceptOfferRequest) {
+        var customerId = getCurrentCustomerId();
+        return sales.acceptOffer(customerId, acceptOfferRequest);
     }
 
-    private String getCurrentCustomer() {
+    private String getCurrentCustomerId() {
         return "kuba";
     }
 

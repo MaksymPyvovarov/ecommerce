@@ -8,13 +8,25 @@ public class AcceptOfferCommand {
     public AcceptOfferCommand(){
     }
 
-    public void setFname(String fname) {
+    public AcceptOfferCommand setFname(String fname) {
         this.fname=fname;
+        return this;
     }
-    public void setLname(String lname) {
+    public AcceptOfferCommand setLname(String lname) {
         this.lname=lname;
+        return this;
     }
-    public void setEmail(String email) {
+    public AcceptOfferCommand setEmail(String email) {
         this.email=email;
+        return this;
+    }
+    public String getFname(String fname) {
+        return fname;
+    }
+    public String getLname(String lname) {
+        return lname;
+    }
+    public String getEmail(String email) {
+        return email;
     }
 }
