@@ -5,35 +5,46 @@ import pl.pasechnik.productCatalogue.*;
 
 import java.util.List;
 import java.util.UUID;
-/*
+
 import static org.junit.jupiter.api.Assertions.*;
 public class HashMapProductStorageTest {
+
     @Test
-   void isSaveAndLoadProduct(){
+    void itSaveAndLoadProduct() {
         //Arrange
-        ProductCatalogue catalogue=thereIsProductCatalogue();
-        var product=thereIsProduct();;
+        Product product = thereIsProduct();
         ProductStorage storage = thereIsStorage();
+
         //Act
         storage.save(product);
-        var loaded=storage.loadProductById(product.getId());
+        var loaded = storage.loadProductById(product.getId());
+
         //Assert
-        assertEquals(product.getId(),loaded.getId());
-        assertEquals(product.getDesc(),loaded.getDesc());
-    }
-    private  ProductStorage thereIsStorage(){
-        return new HashMapProductStorage();
-    }
-    private  ProductCatalogue thereIsProductCatalogue(){return new DbProductCatalogue();}
-    private Product thereIsProduct(){return new Product(UUID.randomUUID(),"Lego set 8083","nice one");}
-    @Test
-    void itLoadsAllProducts(){
-        var product=thereIsProduct();
-        ProductStorage storage = thereIsStorage();
-        storage.save(product);
-        List<Product> all = storage.allProducts();
-        assertEquals(1,all.size());
+        assertEquals(product.getId(), loaded.getId());
+        assertEquals(product.getDesc(), loaded.getDesc());
     }
 
+    private Product thereIsProduct() {
+        return new Product(UUID.randomUUID(), "test it", "desc");
+    }
+
+    private ProductStorage thereIsStorage() {
+        return HashMapProductStorage();
+    }
+
+    private ProductStorage HashMapProductStorage() {
+        return new HashMapProductStorage();
+    }
+
+    @Test
+    void itLoadsAllProducts() {
+        Product product = thereIsProduct();
+        ProductStorage storage = thereIsStorage();
+
+        storage.save(product);
+
+        List<Product> all = storage.allProducts();
+
+        assertEquals(1, all.size());
+    }
 }
-*/

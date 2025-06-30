@@ -7,39 +7,46 @@ import java.util.List;
 import java.util.UUID;
 
 public class ProductCatalogue {
-    static ProductStorage arrayListProductStorage;
-    public ProductCatalogue(ProductStorage ArrayProductStorage) {
-        this.arrayListProductStorage= ArrayProductStorage;
+    ProductStorage productStorage;
+
+    public ProductCatalogue(ProductStorage productStorage) {
+        this.productStorage = productStorage;
     }
-    public static List<Product> allProducts(){
-        return arrayListProductStorage.allProducts();//TEXH
+
+    public List<Product> allProducts() {
+        return productStorage.allProducts();
     }
-    public String createProducts(String name, String desc) {
-        var uuid= UUID.randomUUID();
-        var newProduct =new Product(
+
+    public String createProducts(String name, String description) {
+        var uuid = UUID.randomUUID();
+
+        var newProduct = new Product(
                 uuid,
                 name,
-                desc
-        );//DOMAIN
-        this.arrayListProductStorage.save(newProduct);//TECH
+                description
+        ); // DOMAIN
+
+        this.productStorage.save(newProduct); //TECH
+
         return newProduct.getId();
     }
 
     public Product loadProductById(String productId) {
-        return arrayListProductStorage.loadProductById(productId);
+        return productStorage.loadProductById(productId);
     }
 
-    public void changePrice(String productId,BigDecimal bigDecimal) {
-        var product = loadProductById(productId);
-        if(bigDecimal.compareTo(BigDecimal.ZERO)>=0){//DOMAIN
+    public void changePrice(String productId, BigDecimal bigDecimal) {
+        var product = productStorage.loadProductById(productId);
+
+        if (bigDecimal.compareTo(BigDecimal.ZERO) < 0) { //DOMAIN
             throw new InvalidPriceExeption();
         }
+
         product.changePrice(bigDecimal);
     }
 
     public void changeImage(String productId, String url) {
-        var product =loadProductById((productId));
-
-        product.setImage(url);//DOMAIN
+        var product = productStorage.loadProductById(productId);
+        product.setImage(url); // DOMAIN
     }
 }

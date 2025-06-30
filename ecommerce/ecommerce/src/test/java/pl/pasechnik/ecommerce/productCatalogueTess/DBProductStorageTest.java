@@ -17,82 +17,133 @@ public class DBProductStorageTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
     @BeforeEach
-    void setupDB(){
-        jdbcTemplate.execute("Drop table `product_catalogue` if exists");
+    void setupDatabase() {
+        jdbcTemplate.execute("DROP TABLE `product_catalog` IF EXISTS");
+
         var sql = """
-                create table  `product_catalogue`(
-                id varchar (100) not null,
-                name varchar(50) not null,
-                description varchar(100) not null,
-                price decimal(12,2),
-                cover varchar(100),
-                PRIMARY KEY(id));
-                """;
+            CREATE TABLE `product_catalog` (
+                id VARCHAR(100) NOT NULL,
+                name VARCHAR(100) NOT NULL,
+                description VARCHAR(100) NOT NULL,
+                price DECIMAL(12,2),
+                cover VARCHAR(100),
+                PRIMARY KEY(id)
+            );
+        """;
+
         jdbcTemplate.execute(sql);
     }
+
     @Test
-    void itQueryDb(){
-        var sql= "select now() curr_time";
+    void helloWorldSql() {
+        var sql = """
+            select now();    
+        """;
+
         var result = jdbcTemplate.queryForObject(sql, String.class);
 
         assert result.contains("2025");
     }
+
+
     @Test
-    void itCreatesTables(){
-        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalogue`", Integer.class);
+    void itCreateTable() {
+
+        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalog`", Integer.class);
 
         assert result == 0;
     }
+
     @Test
-    void itAllowsToInsertIntoTable(){
+    void itAllowsToInsertIntoTable() {
 
         var insertSql = """
-                INSERT INTO `product_catalogue`(id,name,description)
-                Values (?,?,?)
-                """;
-        jdbcTemplate.update(insertSql,"d1d7f479-6e47-4aa4-88e5-1e6d58359654","product uno","really good one");
-        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalogue`", Integer.class);
+            INSERT INTO `product_catalog` (id, name, description)
+            VALUES 
+                ('78283015-ec97-453e-8f6d-92296ad7271f', 'product 1', 'nice desc'),
+                ('32cea78d-9748-4927-98bd-915bcca9b08e', 'product 2', 'even nicer');
+        """;
+
+        jdbcTemplate.execute(insertSql);
+
+        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalog`", Integer.class);
+
+        assert result == 2;
+    }
+
+    @Test
+    void itAllowsToInsertIntoTableWithArguments() {
+
+        var insertSql = """
+            INSERT INTO `product_catalog` (id, name, description)
+            VALUES
+                (?, ?, ?)
+        """;
+
+        jdbcTemplate.update(insertSql, "785d6e75-53c1-485f-909c-f664f78cf61f", "product 1", "nice one");
+
+        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalog`", Integer.class);
 
         assert result == 1;
     }
+
     @Test
-    void itAllowsToInsertIntoTableViaParameters(){
+    void itAllowsToInsertIntoTableWithArgumentsAsNamedParameters() {
 
         var insertSql = """
-                INSERT INTO `product_catalogue`(id,name,description)
-                Values (:id,:name,:desc);
-                """;
+            INSERT INTO `product_catalog` (id, name, description)
+            VALUES
+                (:id, :name, :desc)
+        """;
+
         Map<String, Object> params = new HashMap<>();
-        params.put("id","af208e12-cf1e-44d5-9a53-6697b6d9ac67");
-        params.put("desc","products");
-        params.put("name","producto uno");
+        params.put("id", "c2ab2bfd-53db-4ebf-b39f-f9a109ad9bae");
+        params.put("desc", "products");
+        params.put("name", "nice product");
+
         var namedJdbc = new NamedParameterJdbcTemplate(jdbcTemplate);
-        namedJdbc.update(insertSql,params);
-        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalogue`", Integer.class);
+        namedJdbc.update(insertSql, params);
+
+        var result = jdbcTemplate.queryForObject("select count(*) from `product_catalog`", Integer.class);
 
         assert result == 1;
     }
+
     @Test
-    void isSaveAndLoadProduct(){
+    void itSaveAndLoadProduct() {
         //Arrange
-        ProductStorage catalogue=thereIsProductCatalogue();
-        var product=thereIsProduct();;
+        Product product = thereIsProduct();
+        ProductStorage storage = thereIsStorage();
 
         //Act
-        catalogue.save(product);
-        var loaded=catalogue.loadProductById(product.getId());
-        //Assert
-        assertEquals(product.getId(),loaded.getId());
-        assertEquals(product.getDesc(),loaded.getDesc());
-    }
-    private  ProductStorage thereIsProductCatalogue(){return new DbProductCatalogue(jdbcTemplate);}
-    private Product thereIsProduct(){return new Product(UUID.randomUUID(),"Lego set 8083","nice one");}
-    @Test
-    void itLoadsAllProducts(){
-        var product=thereIsProduct();
-        ProductStorage storage = thereIsProductCatalogue();
         storage.save(product);
+        var loaded = storage.loadProductById(product.getId());
+
+        //Assert
+        assertEquals(product.getId(), loaded.getId());
+        assertEquals(product.getDesc(), loaded.getDesc());
+    }
+
+    private Product thereIsProduct() {
+        return new Product(
+                UUID.randomUUID(),
+                "test it",
+                "desc");
+    }
+
+    private DbProductCatalogue thereIsStorage() {
+        return new DbProductCatalogue(jdbcTemplate);
+    }
+
+    @Test
+    void itLoadsAllProducts() {
+        Product product = thereIsProduct();
+        ProductStorage storage = thereIsStorage();
+
+        storage.save(product);
+
         List<Product> all = storage.allProducts();
-        assertEquals(1,all.size());
+
+        assertEquals(1, all.size());
     }
 }

@@ -10,21 +10,20 @@ import java.util.List;
 
 @RestController
 public class ProductCatalogueController {
-    ProductCatalogue productCatalogue;
-    public ProductCatalogueController(ProductCatalogue productCatalogue){
-        this.productCatalogue=productCatalogue;
+    ProductCatalogue productCatalog;
+
+    public ProductCatalogueController(ProductCatalogue productCatalog) {
+        this.productCatalog = productCatalog;
     }
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
+
+    @GetMapping("/api/version")
+    public String version() {
+        return "v0.0.1"; //https://semver.org/
     }
-    @GetMapping("/api/info")
-    public String  version(){
-        return "v0.0.1";
-    }
+
     @GetMapping("/api/products")
     public List<Product> allProducts() {
-        return productCatalogue.allProducts();
+        return productCatalog.allProducts();
     }
 
 
