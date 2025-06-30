@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class ProductCatalogue {
-    static ArrayProductStorage arrayListProductStorage;
-    public ProductCatalogue(ArrayProductStorage ArrayProductStorage) {
+    static ProductStorage arrayListProductStorage;
+    public ProductCatalogue(ProductStorage ArrayProductStorage) {
         this.arrayListProductStorage= ArrayProductStorage;
     }
     public static List<Product> allProducts(){
