@@ -1,6 +1,8 @@
 package pl.pasechnik.ecommerce.sales;
 
 import org.springframework.web.bind.annotation.*;
+import pl.pasechnik.ecommerce.sales.reservation.AcceptOfferCommand;
+import pl.pasechnik.ecommerce.sales.reservation.ReservationDetails;
 
 @RestController
 public class SalesController {

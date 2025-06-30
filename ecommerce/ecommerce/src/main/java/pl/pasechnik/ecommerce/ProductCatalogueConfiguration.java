@@ -12,9 +12,9 @@ public class ProductCatalogueConfiguration {
     ProductCatalogue createMyProductCatalogue(ProductStorage storage){
         ProductCatalogue catalog= new ProductCatalogue(storage);
         catalog.createProducts("lego 2342","nice one 1");
-        catalog.createProducts("lego 2342","nice one 2");
-        catalog.createProducts("lego 2342","nice uno  3");
-        catalog.createProducts("lego 2342","nice one 4");
+        catalog.createProducts("lego 2341","nice one 2");
+        catalog.createProducts("lego 2343","nice uno  3");
+        catalog.createProducts("lego 2344","nice one 4");
         return catalog;
     }
     @Bean

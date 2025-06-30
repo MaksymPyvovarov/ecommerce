@@ -1,4 +1,4 @@
-package pl.pasechnik.ecommerce.sales;
+package pl.pasechnik.ecommerce.sales.reservation;
 
 public class AcceptOfferCommand {
     String fname;
@@ -20,13 +20,13 @@ public class AcceptOfferCommand {
         this.email=email;
         return this;
     }
-    public String getFname(String fname) {
+    public String getFname() {
         return fname;
     }
-    public String getLname(String lname) {
+    public String getLname() {
         return lname;
     }
-    public String getEmail(String email) {
+    public String getEmail() {
         return email;
     }
 }
