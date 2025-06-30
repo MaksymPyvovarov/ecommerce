@@ -13,7 +13,7 @@ public class app {
 
 
     public static void main(String[] args) {
-        System.out.println("it works");
+        System.out.println("it works,no it does nothing");
         SpringApplication.run(app.class, args);
     }
     @GetMapping("/hello")
@@ -25,6 +25,9 @@ public class app {
         var catalog= new ProductCatalogue(
                 new ArrayProductStorage()
         );
+        catalog.createProducts("lego 2342","nice one");
+        catalog.createProducts("lego 2342","nice one");
+        catalog.createProducts("lego 2342","nice one");
         catalog.createProducts("lego 2342","nice one");
         return catalog;
     }

@@ -1,5 +1,5 @@
  const getProducts=async()=>{
-    return fetch("/api/products").then((r)=>r.json())
+    return fetch("/api/products").then(r=>r.json())
 }
 const createHtmlEl=(product)=>{
     const template = `
@@ -15,5 +15,5 @@ const createHtmlEl=(product)=>{
     const productList = document.querySelector(".products")
     getProducts()
         .then(products=>products.map(createHtmlEl))
-        .then(htmlProps=>htmlProps.forEach(el=>ProductList.appendChild(el)))
+        .then(htmlProps=>htmlProps.forEach(el=>productList.appendChild(el)))
 })();
