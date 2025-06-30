@@ -1,21 +1,19 @@
-package pl.pasechnik.productCatalogueTess;
+package pl.pasechnik.ecommerce.productCatalogueTess;
 
 import org.junit.jupiter.api.Test;
-import pl.pasechnik.productCatalogue.HashMapProductStorage;
-import pl.pasechnik.productCatalogue.Product;
-import pl.pasechnik.productCatalogue.ProductCatalogue;
-import pl.pasechnik.productCatalogue.ProductStorage;
+import pl.pasechnik.productCatalogue.*;
 
 import java.util.List;
-
+import java.util.UUID;
+/*
 import static org.junit.jupiter.api.Assertions.*;
-/*public class HashMapProductStorageTest {
+public class HashMapProductStorageTest {
     @Test
-    void isSaveAndLoadProduct(){
+   void isSaveAndLoadProduct(){
         //Arrange
         ProductCatalogue catalogue=thereIsProductCatalogue();
-        var product=catalogue.createProducts("Lego set 8083","nice one");;
-        ProductStorage storage = new HashMapProductStorage();
+        var product=thereIsProduct();;
+        ProductStorage storage = thereIsStorage();
         //Act
         storage.save(product);
         var loaded=storage.loadProductById(product.getId());
@@ -26,6 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
     private  ProductStorage thereIsStorage(){
         return new HashMapProductStorage();
     }
+    private  ProductCatalogue thereIsProductCatalogue(){return new DbProductCatalogue();}
+    private Product thereIsProduct(){return new Product(UUID.randomUUID(),"Lego set 8083","nice one");}
     @Test
     void itLoadsAllProducts(){
         var product=thereIsProduct();
@@ -36,4 +36,4 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
 }
-hi*/
+*/

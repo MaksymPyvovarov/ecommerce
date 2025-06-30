@@ -1,4 +1,4 @@
-package pl.pasechnik.productCatalogueTess;
+package pl.pasechnik.ecommerce.productCatalogueTess;
 
 import org.junit.jupiter.api.Test;
 import pl.pasechnik.productCatalogue.*;

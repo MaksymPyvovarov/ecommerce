@@ -6,6 +6,7 @@ const createHtmlEl=(product)=>{
         <h4>${product.name}</h4>
         <p>${product.desc}<//p>
         <span>${product.price}</span>
+        <button>add to cart</button>
     `;
     const el=document.createElement("li")
     el.innerHTML=template.trim();

@@ -16,21 +16,4 @@ public class app {
         System.out.println("it works,no it does nothing");
         SpringApplication.run(app.class, args);
     }
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
-    }
-    @Bean
-    ProductCatalogue createMyProductCatalogue(){
-        var catalog= new ProductCatalogue(
-                new ArrayProductStorage()
-        );
-        catalog.createProducts("lego 2342","nice one");
-        catalog.createProducts("lego 2342","nice one");
-        catalog.createProducts("lego 2342","nice one");
-        catalog.createProducts("lego 2342","nice one");
-        return catalog;
-    }
-
-
 }
